@@ -33,7 +33,7 @@ impl<'a> Lexer<'a> {
     self.input.peek().map(|c| *c as u8)
   }
   
-  fn next_token(&mut self) -> Token {
+  pub fn next_token(&mut self) -> Token {
     self.skip_whitespace();
     
     if self.is_letter() {
@@ -87,7 +87,7 @@ impl<'a> Lexer<'a> {
   
   fn read_identifier(&mut self) -> Token {
     let mut identifier = String::new();
-    while self.is_letter() {
+    while self.is_letter() || self.is_digit() {
       match self.ch {
         Some(letter) => identifier.push(letter as char),
         None => (),
